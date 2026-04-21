@@ -3,6 +3,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.HashMap;
 
@@ -22,6 +23,7 @@ public class CartTest {
         options.addArguments("--disable-popup-blocking");
         options.addArguments("--disable-infobars");
         WebDriver driver = new ChromeDriver(options);
+        SoftAssert softAssert = new SoftAssert();
 
         driver.get("https://www.saucedemo.com/");
 
@@ -41,11 +43,12 @@ public class CartTest {
                         "//button")).click();
         driver.findElement(By.xpath("//a[@class='shopping_cart_link']")).click();
 
-        assertEquals(nameProduct, driver.findElement(
+        softAssert.assertEquals(nameProduct, driver.findElement(
                 By.xpath("//div[@class='cart_item']//div[@class='inventory_item_name']")).getText());
-        assertEquals(priceProduct, driver.findElement(
+        softAssert.assertEquals(priceProduct, driver.findElement(
                 By.xpath("//div[@class='cart_item']//div[@class='inventory_item_price']")).getText());
 
         driver.quit();
+        softAssert.assertAll();
     }
 }
