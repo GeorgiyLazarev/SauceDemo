@@ -12,15 +12,10 @@ import org.testng.asserts.SoftAssert;
 public class BasePage {
 
     WebDriver driver;
-    SoftAssert softAssert;
     public final String BASE_URL = "https://www.saucedemo.com/";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-    }
-
-    public BasePage(SoftAssert softAssert) {
-        this.softAssert = new SoftAssert();
     }
 
     public boolean isVisible(By locator, int timeoutSeconds) {

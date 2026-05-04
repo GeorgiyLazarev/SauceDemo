@@ -1,11 +1,12 @@
 package tests;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.asserts.SoftAssert;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductPage;
@@ -18,10 +19,24 @@ public class BaseTest {
     LoginPage loginPage;
     ProductPage productPage;
     CartPage cartPage;
-    SoftAssert softAssert;
 
-    @BeforeMethod
-    public void setUp() {
+    public void initDriver(String browser) {
+        switch (browser.toLowerCase()) {
+            case "chrome" -> driver = createChromeDriver();
+            case "firefox" -> driver = createFirefoxDriver();
+            case "edge" -> driver = createEdgeDriver();
+            default -> throw new IllegalArgumentException("Неподдерживаемый браузер: " + browser);
+        }
+
+        driver.manage().window().maximize();
+
+        loginPage = new LoginPage(driver);
+        productPage = new ProductPage(driver);
+        cartPage = new CartPage(driver);
+    }
+
+    private WebDriver createChromeDriver() {
+        WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         HashMap<String, Object> chromePrefs = new HashMap<>();
         chromePrefs.put("credentials_enable_service", false);
@@ -35,15 +50,20 @@ public class BaseTest {
         options.addArguments("--disable-blink-features=AutomationControlled");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setExperimentalOption("useAutomationExtension", false);
-        driver = new ChromeDriver(options);
-
-        loginPage = new LoginPage(driver);
-        productPage = new ProductPage(driver);
-        cartPage = new CartPage(driver);
-        softAssert = new SoftAssert();
+        return new ChromeDriver(options);
     }
 
-    @AfterMethod (alwaysRun = true)
+    private WebDriver createFirefoxDriver() {
+        WebDriverManager.firefoxdriver().setup();
+        return new FirefoxDriver();
+    }
+
+    private WebDriver createEdgeDriver() {
+        WebDriverManager.edgedriver().setup();
+        return new EdgeDriver();
+    }
+
+    @AfterEach()
     public void tearDawn() {
         driver.quit();
     }

@@ -1,17 +1,26 @@
 package tests;
 
 import enumUI.ProductName;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static enumUI.ProductName.*;
 
-public class CartTest extends BaseTest{
+public class CartTest extends BaseTest {
 
-    @Test
-    public void checkCart() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка соответствия описания товара в корзине после добавления")
+    public void checkCart(String browser) {
+
+        SoftAssert softAssert = new SoftAssert();
+
+        initDriver(browser);
         loginPage.authorizationPositive();
 
         String nameProduct = productPage.getNameProduct(BACKPACK);
@@ -37,9 +46,13 @@ public class CartTest extends BaseTest{
         softAssert.assertAll();
     }
 
-    @Test
-    public void testRemoveFromCartUsingProductCard() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка удаления товара через карточку товара")
+    public void testRemoveFromCartUsingProductCard(String browser) {
+        initDriver(browser);
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(FLEECE_JACKET)
                 .addToCartClick(FLEECE_JACKET)
@@ -59,11 +72,15 @@ public class CartTest extends BaseTest{
                 .productCardAbsence(FLEECE_JACKET);
     }
 
-    @Test
-    public void addAllProductsToCart() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка добавления всех единиц товаров")
+    public void addAllProductsToCart(String browser) {
         List<ProductName> products = Arrays.asList(
                 BACKPACK, FLASHLIGHT, BLACK_SHIRT, FLEECE_JACKET, CHILDREN_PAJAMAS, RED_JACKET);
+        initDriver(browser);
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(BACKPACK)
                 .addToCartClick(BACKPACK)
@@ -83,9 +100,13 @@ public class CartTest extends BaseTest{
                 .productCardDisplayed(products);
     }
 
-    @Test
-    public void deleteProductCart() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка удаления товара через главную страницу с товарами")
+    public void deleteProductCart(String browser) {
+        initDriver(browser);
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(RED_JACKET)
                 .addToCartClick(RED_JACKET)
@@ -98,9 +119,13 @@ public class CartTest extends BaseTest{
                 .productCardAbsence(RED_JACKET);
     }
 
-    @Test
-    public void testAddToCartFromProductCard() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка добавления товара в корзину через карточку товара")
+    public void testAddToCartFromProductCard(String browser) {
+        initDriver(browser);
         loginPage.authorizationPositive();
+
         productPage
                 .openProductCard(CHILDREN_PAJAMAS)
                 .verifyAddProductToCart()
@@ -111,9 +136,13 @@ public class CartTest extends BaseTest{
                 .productCardDisplayed(CHILDREN_PAJAMAS);
     }
 
-    @Test
-    public void testDeleteToCartFromProductCard() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    @DisplayName("Проверка удаления товара в корзине")
+    public void testDeleteToCartFromProductCard(String browser) {
+        initDriver(browser);
         loginPage.authorizationPositive();
+
         productPage
                 .openProductCard(CHILDREN_PAJAMAS)
                 .verifyAddProductToCart()
