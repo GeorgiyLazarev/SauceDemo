@@ -1,22 +1,18 @@
 package tests;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import static enumUI.ProductName.FLASHLIGHT;
 
 public class ProductTest extends BaseTest{
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка соответствия товара после перехода в карточку товара")
-    public void checkCardProduct(String browser) {
-
-        initDriver(browser);
-
+    @Test
+            (groups = {"smoke", "regression"},
+            testName = "Проверка соответствия данных товара в карточке",
+            description = "Тест проверяет, что название, цена и описание товара на главной странице " +
+                    "соответствуют данным в карточке товара")
+    public void checkCardProduct() {
         SoftAssert softAssert = new SoftAssert();
 
         loginPage.authorizationPositive();

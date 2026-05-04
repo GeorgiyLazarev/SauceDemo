@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
-import org.testng.annotations.Test;
 
 public class LocatorsTest extends BaseTest {
 

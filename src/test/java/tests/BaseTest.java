@@ -1,12 +1,15 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductPage;
@@ -20,7 +23,9 @@ public class BaseTest {
     ProductPage productPage;
     CartPage cartPage;
 
-    public void initDriver(String browser) {
+    @BeforeMethod
+    @Parameters("browser")
+    public void initDriver(@Optional("chrome") String browser) {
         switch (browser.toLowerCase()) {
             case "chrome" -> driver = createChromeDriver();
             case "firefox" -> driver = createFirefoxDriver();
@@ -63,7 +68,7 @@ public class BaseTest {
         return new EdgeDriver();
     }
 
-    @AfterEach()
+    @AfterMethod()
     public void tearDawn() {
         driver.quit();
     }

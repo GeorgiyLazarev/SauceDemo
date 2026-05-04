@@ -1,9 +1,7 @@
 package tests;
 
 import enumUI.ProductName;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 import java.util.Arrays;
@@ -13,14 +11,14 @@ import static enumUI.ProductName.*;
 
 public class CartTest extends BaseTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка соответствия описания товара в корзине после добавления")
-    public void checkCart(String browser) {
+    @Test
+            (groups = {"smoke", "regression"},
+            testName = "Проверка соответствия товара при добавлении в корзину",
+            description = "Тест проверяет, что название, цена и описание товара соответствуют после добавления в корзину")
+    public void checkCart() {
 
         SoftAssert softAssert = new SoftAssert();
 
-        initDriver(browser);
         loginPage.authorizationPositive();
 
         String nameProduct = productPage.getNameProduct(BACKPACK);
@@ -46,11 +44,11 @@ public class CartTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка удаления товара через карточку товара")
-    public void testRemoveFromCartUsingProductCard(String browser) {
-        initDriver(browser);
+    @Test
+            (groups = {"regression"},
+            testName = "Удаление товара через карточку товара",
+            description = "Тест проверяет удаление товара из корзины через карточку товара на главной странице")
+    public void testRemoveFromCartUsingProductCard() {
         loginPage.authorizationPositive();
 
         productPage
@@ -72,13 +70,13 @@ public class CartTest extends BaseTest {
                 .productCardAbsence(FLEECE_JACKET);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка добавления всех единиц товаров")
-    public void addAllProductsToCart(String browser) {
+    @Test
+            (groups = {"regression"},
+            testName = "Добавление всех товаров в корзину",
+            description = "Тест проверяет возможность добавления всех доступных товаров в корзину")
+    public void addAllProductsToCart() {
         List<ProductName> products = Arrays.asList(
                 BACKPACK, FLASHLIGHT, BLACK_SHIRT, FLEECE_JACKET, CHILDREN_PAJAMAS, RED_JACKET);
-        initDriver(browser);
         loginPage.authorizationPositive();
 
         productPage
@@ -100,11 +98,11 @@ public class CartTest extends BaseTest {
                 .productCardDisplayed(products);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка удаления товара через главную страницу с товарами")
-    public void deleteProductCart(String browser) {
-        initDriver(browser);
+    @Test
+            (groups = {"smoke", "regression"},
+            testName = "Удаление товара через главную страницу",
+            description = "Тест проверяет удаление товара из корзины через кнопку Remove на главной странице")
+    public void deleteProductCart() {
         loginPage.authorizationPositive();
 
         productPage
@@ -119,11 +117,11 @@ public class CartTest extends BaseTest {
                 .productCardAbsence(RED_JACKET);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка добавления товара в корзину через карточку товара")
-    public void testAddToCartFromProductCard(String browser) {
-        initDriver(browser);
+    @Test
+            (groups = {"regression"},
+            testName = "Добавление товара через карточку товара",
+            description = "Тест проверяет добавление товара в корзину через карточку товара")
+    public void testAddToCartFromProductCard() {
         loginPage.authorizationPositive();
 
         productPage
@@ -136,11 +134,11 @@ public class CartTest extends BaseTest {
                 .productCardDisplayed(CHILDREN_PAJAMAS);
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {"chrome", "firefox", "edge"})
-    @DisplayName("Проверка удаления товара в корзине")
-    public void testDeleteToCartFromProductCard(String browser) {
-        initDriver(browser);
+    @Test
+            (groups = {"regression"},
+            testName = "Удаление товара через карточку товара (детальная страница)",
+            description = "Тест проверяет добавление и последующее удаление товара через детальную карточку товара")
+    public void testDeleteToCartFromProductCard() {
         loginPage.authorizationPositive();
 
         productPage

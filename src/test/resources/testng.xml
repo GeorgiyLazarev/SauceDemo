@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="2"
+       name="Sauce Demo IT Matreshka 5"
+       parallel="classes">
+
+    <listeners>
+        <listener class-name="utils.TestListener"/>
+        <listener class-name="utils.AnnotationTransformer"/>
+    </listeners>
+
+    <test name="Chrome - Smoke Tests">
+        <parameter name="browser" value="chrome"/>
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.ProductTest"/>
+            <class name="tests.CartTest"/>
+        </classes>
+    </test>
+
+    <test name="Firefox - Regression Tests">
+        <parameter name="browser" value="firefox"/>
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.CartTest"/>
+            <class name="tests.ProductTest"/>
+        </classes>
+    </test>
+
+    <test name="Edge - Smoke Tests">
+        <parameter name="browser" value="edge"/>
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="tests.LoginTest"/>
+            <class name="tests.ProductTest"/>
+            <class name="tests.CartTest"/>
+        </classes>
+    </test>
+
+</suite>
