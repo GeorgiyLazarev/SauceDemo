@@ -16,7 +16,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression", "negative"},
+            (groups = {"smoke", "regression"},
             testName = "Проверка авторизации с пустым паролем",
             description = "Тест проверяет отображение ошибки при авторизации с пустым полем пароля")
     public void checkLoginWithEmptyPassword() {
@@ -26,7 +26,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression", "negative"},
+            (groups = {"smoke", "regression"},
             testName = "Проверка авторизации с пустым логином",
             description = "Тест проверяет отображение ошибки при авторизации с пустым полем логина")
     public void checkLoginWithEmptyUser() {
@@ -36,7 +36,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression", "negative"},
+            (groups = {"smoke", "regression"},
             testName = "Проверка авторизации с неверными учетными данными",
             description = "Тест проверяет отображение ошибки при авторизации с некорректным логином и паролем")
     public void checkLoginWithNegativeCred() {

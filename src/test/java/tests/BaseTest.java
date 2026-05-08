@@ -23,7 +23,7 @@ public class BaseTest {
     ProductPage productPage;
     CartPage cartPage;
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     @Parameters("browser")
     public void initDriver(@Optional("chrome") String browser) {
         switch (browser.toLowerCase()) {
@@ -68,7 +68,7 @@ public class BaseTest {
         return new EdgeDriver();
     }
 
-    @AfterMethod()
+    @AfterMethod(alwaysRun = true)
     public void tearDawn() {
         driver.quit();
     }

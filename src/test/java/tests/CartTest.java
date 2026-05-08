@@ -45,7 +45,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression"},
+            (groups = {"smoke", "regression"},
             testName = "Удаление товара через карточку товара",
             description = "Тест проверяет удаление товара из корзины через карточку товара на главной странице")
     public void testRemoveFromCartUsingProductCard() {
@@ -71,7 +71,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression"},
+            (groups = {"smoke", "regression"},
             testName = "Добавление всех товаров в корзину",
             description = "Тест проверяет возможность добавления всех доступных товаров в корзину")
     public void addAllProductsToCart() {
@@ -118,7 +118,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression"},
+            (groups = {"smoke", "regression"},
             testName = "Добавление товара через карточку товара",
             description = "Тест проверяет добавление товара в корзину через карточку товара")
     public void testAddToCartFromProductCard() {
@@ -135,7 +135,7 @@ public class CartTest extends BaseTest {
     }
 
     @Test
-            (groups = {"regression"},
+            (groups = {"smoke", "regression"},
             testName = "Удаление товара через карточку товара (детальная страница)",
             description = "Тест проверяет добавление и последующее удаление товара через детальную карточку товара")
     public void testDeleteToCartFromProductCard() {
