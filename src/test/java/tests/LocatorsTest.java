@@ -1,14 +1,16 @@
 package tests;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.By;
-import org.testng.annotations.Test;
 
 public class LocatorsTest extends BaseTest {
 
-    @Test
-    public void checkLocator() {
+    @ParameterizedTest
+    @ValueSource(strings = {"chrome", "firefox", "edge"})
+    public void checkLocator(String browser) {
 
-        driver.get("https://www.saucedemo.com/");
+        initDriver(browser);
 
         driver.findElement(By.xpath("//input[@data-test='username']")).sendKeys("standard_user");
         driver.findElement(By.xpath("//input[@data-test='password']")).sendKeys("secret_sauce");

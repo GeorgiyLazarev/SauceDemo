@@ -2,16 +2,23 @@ package tests;
 
 import enumUI.ProductName;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static enumUI.ProductName.*;
 
-public class CartTest extends BaseTest{
+public class CartTest extends BaseTest {
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Проверка соответствия товара при добавлении в корзину",
+            description = "Тест проверяет, что название, цена и описание товара соответствуют после добавления в корзину")
     public void checkCart() {
+
+        SoftAssert softAssert = new SoftAssert();
+
         loginPage.authorizationPositive();
 
         String nameProduct = productPage.getNameProduct(BACKPACK);
@@ -38,8 +45,12 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Удаление товара через карточку товара",
+            description = "Тест проверяет удаление товара из корзины через карточку товара на главной странице")
     public void testRemoveFromCartUsingProductCard() {
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(FLEECE_JACKET)
                 .addToCartClick(FLEECE_JACKET)
@@ -60,10 +71,14 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Добавление всех товаров в корзину",
+            description = "Тест проверяет возможность добавления всех доступных товаров в корзину")
     public void addAllProductsToCart() {
         List<ProductName> products = Arrays.asList(
                 BACKPACK, FLASHLIGHT, BLACK_SHIRT, FLEECE_JACKET, CHILDREN_PAJAMAS, RED_JACKET);
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(BACKPACK)
                 .addToCartClick(BACKPACK)
@@ -84,8 +99,12 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Удаление товара через главную страницу",
+            description = "Тест проверяет удаление товара из корзины через кнопку Remove на главной странице")
     public void deleteProductCart() {
         loginPage.authorizationPositive();
+
         productPage
                 .verifyAddToStringProduct(RED_JACKET)
                 .addToCartClick(RED_JACKET)
@@ -99,8 +118,12 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Добавление товара через карточку товара",
+            description = "Тест проверяет добавление товара в корзину через карточку товара")
     public void testAddToCartFromProductCard() {
         loginPage.authorizationPositive();
+
         productPage
                 .openProductCard(CHILDREN_PAJAMAS)
                 .verifyAddProductToCart()
@@ -112,8 +135,12 @@ public class CartTest extends BaseTest{
     }
 
     @Test
+            (groups = {"smoke", "regression"},
+            testName = "Удаление товара через карточку товара (детальная страница)",
+            description = "Тест проверяет добавление и последующее удаление товара через детальную карточку товара")
     public void testDeleteToCartFromProductCard() {
         loginPage.authorizationPositive();
+
         productPage
                 .openProductCard(CHILDREN_PAJAMAS)
                 .verifyAddProductToCart()
