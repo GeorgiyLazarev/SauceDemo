@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
@@ -15,6 +16,9 @@ public class TestListener implements ITestListener {
 
     public void onTestFailure(ITestResult result) {
         System.out.println("======================================== FAILED TEST loginTest Duration: 3s ========================================");
+
+        WebDriver driver = (WebDriver) result.getTestContext().getAttribute("driver");
+        AllureUtils.takeScreenshot(driver);
     }
 
     public void onTestSkipped(ITestResult result) {

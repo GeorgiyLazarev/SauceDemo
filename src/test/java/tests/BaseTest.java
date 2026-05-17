@@ -1,21 +1,23 @@
 package tests;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Description;
+import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Optional;
-import org.testng.annotations.Parameters;
+import org.testng.ITestContext;
+import org.testng.annotations.*;
 import pages.CartPage;
 import pages.LoginPage;
 import pages.ProductPage;
+import utils.TestListener;
 
 import java.util.HashMap;
 
+@Listeners({AllureTestNg.class, TestListener.class})
 public class BaseTest {
 
     WebDriver driver;
@@ -25,7 +27,8 @@ public class BaseTest {
 
     @BeforeMethod(alwaysRun = true)
     @Parameters("browser")
-    public void initDriver(@Optional("chrome") String browser) {
+    @Description("Настройка браузера")
+    public void initDriver(@Optional("chrome") String browser, ITestContext iTestContext) {
         switch (browser.toLowerCase()) {
             case "chrome" -> driver = createChromeDriver();
             case "firefox" -> driver = createFirefoxDriver();
@@ -38,6 +41,8 @@ public class BaseTest {
         loginPage = new LoginPage(driver);
         productPage = new ProductPage(driver);
         cartPage = new CartPage(driver);
+
+        iTestContext.setAttribute("driver", driver);
     }
 
     private WebDriver createChromeDriver() {
