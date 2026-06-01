@@ -10,8 +10,6 @@ public class LocatorsTest extends BaseTest {
     @ValueSource(strings = {"chrome", "firefox", "edge"})
     public void checkLocator(String browser) {
 
-        initDriver(browser);
-
         driver.findElement(By.xpath("//input[@data-test='username']")).sendKeys("standard_user");
         driver.findElement(By.xpath("//input[@data-test='password']")).sendKeys("secret_sauce");
         driver.findElement(By.xpath("//input[@data-test='login-button']")).click();

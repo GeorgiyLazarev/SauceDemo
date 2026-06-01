@@ -1,6 +1,7 @@
 package tests;
 
 import enumUI.ProductName;
+import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -9,12 +10,18 @@ import java.util.List;
 
 import static enumUI.ProductName.*;
 
+@Epic("Корзина")
+@Feature("Управление корзиной")
+@Owner("Lazarev.G.A")
 public class CartTest extends BaseTest {
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Проверка соответствия товара при добавлении в корзину",
-            description = "Тест проверяет, что название, цена и описание товара соответствуют после добавления в корзину")
+    @Story("Добавление товара")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("NT-T13")
+    @Issue("NT-12")
+    @Description("Проверяет, что название, цена и описание товара совпадают после добавления в корзину")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Проверка соответствия товара при добавлении в корзину")
     public void checkCart() {
 
         SoftAssert softAssert = new SoftAssert();
@@ -44,10 +51,13 @@ public class CartTest extends BaseTest {
         softAssert.assertAll();
     }
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Удаление товара через карточку товара",
-            description = "Тест проверяет удаление товара из корзины через карточку товара на главной странице")
+    @Story("Добавление товара")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("NT-T14")
+    @Issue("NT-13")
+    @Description("Проверяет добавление всех доступных товаров в корзину")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Добавление всех товаров в корзину")
     public void testRemoveFromCartUsingProductCard() {
         loginPage.authorizationPositive();
 
@@ -70,10 +80,13 @@ public class CartTest extends BaseTest {
                 .productCardAbsence(FLEECE_JACKET);
     }
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Добавление всех товаров в корзину",
-            description = "Тест проверяет возможность добавления всех доступных товаров в корзину")
+    @Story("Добавление товара")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("NT-T15")
+    @Issue("NT-14")
+    @Description("Проверяет добавление товара в корзину через детальную карточку товара")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Добавление товара через карточку товара")
     public void addAllProductsToCart() {
         List<ProductName> products = Arrays.asList(
                 BACKPACK, FLASHLIGHT, BLACK_SHIRT, FLEECE_JACKET, CHILDREN_PAJAMAS, RED_JACKET);
@@ -98,10 +111,13 @@ public class CartTest extends BaseTest {
                 .productCardDisplayed(products);
     }
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Удаление товара через главную страницу",
-            description = "Тест проверяет удаление товара из корзины через кнопку Remove на главной странице")
+    @Story("Удаление товара")
+    @Severity(SeverityLevel.CRITICAL)
+    @TmsLink("NT-T16")
+    @Issue("NT-15")
+    @Description("Проверяет удаление товара из корзины через кнопку Remove на главной странице")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Удаление товара через главную страницу")
     public void deleteProductCart() {
         loginPage.authorizationPositive();
 
@@ -117,10 +133,13 @@ public class CartTest extends BaseTest {
                 .productCardAbsence(RED_JACKET);
     }
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Добавление товара через карточку товара",
-            description = "Тест проверяет добавление товара в корзину через карточку товара")
+    @Story("Удаление товара")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("NT-T17")
+    @Issue("NT-16")
+    @Description("Проверяет удаление товара из корзины через карточку товара на главной странице")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Удаление товара через карточку товара")
     public void testAddToCartFromProductCard() {
         loginPage.authorizationPositive();
 
@@ -134,10 +153,13 @@ public class CartTest extends BaseTest {
                 .productCardDisplayed(CHILDREN_PAJAMAS);
     }
 
-    @Test
-            (groups = {"smoke", "regression"},
-            testName = "Удаление товара через карточку товара (детальная страница)",
-            description = "Тест проверяет добавление и последующее удаление товара через детальную карточку товара")
+    @Story("Удаление товара")
+    @Severity(SeverityLevel.NORMAL)
+    @TmsLink("NT-T18")
+    @Issue("NT-17")
+    @Description("Проверяет добавление и последующее удаление товара через детальную карточку товара")
+    @Test(groups = {"smoke", "regression"},
+            testName = "Удаление товара через карточку товара (детальная страница)")
     public void testDeleteToCartFromProductCard() {
         loginPage.authorizationPositive();
 
